@@ -1,15 +1,25 @@
+import conferenceRegistration.util.CalandarFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import conferenceRegistration.repository.HibernateSpeakerRepositoryImpl;
-import conferenceRegistration.repository.SpeakerRepository;
-import conferenceRegistration.service.SpeakerService;
-import conferenceRegistration.service.SpeakerServiceImpl;
+import java.util.Calendar;
 
 @Configuration
 @ComponentScan({"conferenceRegistration"})
 public class AppConfig {
+
+    @Bean(name= "cal")
+    public CalandarFactory calFactory(){
+        CalandarFactory factory = new CalandarFactory();
+        factory.addDays(2);
+        return factory;
+    }
+
+    @Bean
+    public Calendar cal() throws Exception {
+        return calFactory().getObject();
+    }
 
 	// Spring injects the SpeakerRepository bean into the speakerService bean and
 	// return it back to the application when we call it
